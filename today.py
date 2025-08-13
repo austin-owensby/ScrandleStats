@@ -1,5 +1,5 @@
 from datetime import datetime
-from utils import getScoreData, getMatchupsForDate, calculateAverageDifference, getHistoricalData
+from utils import getScoreData, getMatchupsForDate, calculateAverageDifference, getHistoricalData, saveHistoricalData
 
 historical_data = getHistoricalData()
 date_formatted = datetime.today().strftime("%Y-%m-%d")
@@ -10,6 +10,7 @@ else:
     score_data = getScoreData()
     matchup_data = getMatchupsForDate(datetime.today())
     average = calculateAverageDifference(score_data, matchup_data)
+    saveHistoricalData([(date_formatted, average)])
 
 if len(historical_data) == 0:
     print(f"Today's Scrandle diff average was {round(average, 2)}")
