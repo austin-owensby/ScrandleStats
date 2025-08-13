@@ -9,6 +9,8 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
     steps:
     - uses: actions/checkout@v4
       with:
@@ -16,7 +18,15 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
     - name: Run todays check
-      run: python today.py
+      id: runPython
+      run: |
+        result="$(python today.py)"
+        echo "result=$result" >> "$GITHUB_OUTPUT"
+    - name: Send message to Slack
+      run: |
+        curl -X POST "${{ secrets.SLACK_ROUTE }}" \
+             -H "Content-Type: application/json" \
+             -d '{"text": "'"${{ steps.runPython.outputs.result }}"'"}'
     - name: Commit updated historical results
       run: |
         git config --global user.name 'Austin Owensby'
