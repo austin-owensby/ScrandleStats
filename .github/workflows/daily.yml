@@ -1,8 +1,8 @@
 name: Get daily score
 on:
   schedule:
-    # Run at 7:00am every day
-    - cron: "0 7 * * *"
+    # Run at 7:00am CST every day
+    - cron: "0 12 * * *"
   workflow_dispatch:
 permissions:
   contents: write
