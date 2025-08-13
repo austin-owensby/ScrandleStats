@@ -15,5 +15,9 @@ jobs:
       uses: actions/setup-python@v4
     - name: Run todays check
       run: python today.py
-    # TODO commit updated history to repo
-    # TODO how can we report the new results?
+    - name: Commit updated historical results
+      run: |
+        git config --global user.name 'Austin Owensby'
+        git config --global user.email 'austin-owensby@users.noreply.github.com'
+        git commit -am "Automated daily update"
+        git push
