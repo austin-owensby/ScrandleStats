@@ -4,6 +4,8 @@ on:
     # Run at 7:00am every day
     - cron: "0 7 * * *"
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   run:
     runs-on: ubuntu-latest
