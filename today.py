@@ -1,11 +1,15 @@
 from datetime import datetime
 from utils import getScoreData, getMatchupsForDate, calculateAverageDifference, getHistoricalData
 
-score_data = getScoreData()
-matchup_data = getMatchupsForDate(datetime.today())
-average = calculateAverageDifference(score_data, matchup_data)
-
 historical_data = getHistoricalData()
+date_formatted = datetime.today().strftime("%Y-%m-%d")
+
+if date_formatted in historical_data:
+    average = historical_data[date_formatted]
+else:
+    score_data = getScoreData()
+    matchup_data = getMatchupsForDate(datetime.today())
+    average = calculateAverageDifference(score_data, matchup_data)
 
 if len(historical_data) == 0:
     print(f"Today's Scrandle diff average was {round(average, 2)}")
@@ -39,5 +43,5 @@ else:
     if min_value == max_value:
         print(f"Today's Scrandle diff average was {round(average, 2)}")
     else:
-        difficulty = 10 * (average - min_value) / (max_value - min_value)
+        difficulty = 10 - 10 * (average - min_value) / (max_value - min_value)
         print(f"Today's Scrandle diff average was {round(average, 2)} which makes it a relative difficulty of {round(difficulty, 2)} from 0 to 10{' (for a Friday)' if is_friday else ''}")
