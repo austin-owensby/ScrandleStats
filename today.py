@@ -13,7 +13,7 @@ else:
     saveHistoricalData([(date_formatted, average)])
 
 if len(historical_data) == 0:
-    print(f"Today's Scrandle diff average was {round(average, 2)}")
+    print(f"Today's Scrandle diff average is {round(average, 2)}")
 else:
     is_friday = datetime.today().weekday() == 4
 
@@ -42,7 +42,7 @@ else:
                 max_value = value
 
     if min_value == max_value:
-        print(f"Today's Scrandle diff average was {round(average, 2)}")
+        print(f"Today's Scrandle diff average is {round(average, 2)}")
     else:
         difficulty = 10 - 10 * (average - min_value) / (max_value - min_value)
-        print(f"Today's Scrandle diff average was {round(average, 2)} which makes it a relative difficulty of {round(difficulty, 2)} from 0 to 10{' (for a Friday)' if is_friday else ''}")
+        print(f"Today's Scrandle diff average is {round(average, 2)} which makes it a relative difficulty of {round(difficulty, 2)} from 0 to 10{' (for a Friday)' if is_friday else ''}")
