@@ -58,4 +58,4 @@ else:
         else:
             difficulty_description += "a tough one!"   
         
-        print(f"Today's Scrandle diff average is {round(average, 2)} which makes it a relative difficulty of {round(difficulty, 2)} from 0 to 10{' (for a Friday)' if is_friday else ''}. {difficulty_description}")
+        print(f"Today's Scrandle diff average is {round(average, 2)} which makes it a relative difficulty of {round(difficulty, 2)} from 0 to 10. {difficulty_description}{' (for a Friday)' if is_friday else ''}")
