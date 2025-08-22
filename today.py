@@ -45,4 +45,17 @@ else:
         print(f"Today's Scrandle diff average is {round(average, 2)}")
     else:
         difficulty = 10 - 10 * (average - min_value) / (max_value - min_value)
-        print(f"Today's Scrandle diff average is {round(average, 2)} which makes it a relative difficulty of {round(difficulty, 2)} from 0 to 10{' (for a Friday)' if is_friday else ''}")
+        difficulty_description = "That's "
+
+        if difficulty < 2.0:
+            difficulty_description += "pretty easy."
+        elif difficulty < 4.0:
+            difficulty_description += "an easy one."
+        elif difficulty < 6.0:
+            difficulty_description += "especially average."
+        elif difficulty < 8.0:
+            difficulty_description += "a little tricky."
+        else:
+            difficulty_description += "a tough one!"   
+        
+        print(f"Today's Scrandle diff average is {round(average, 2)} which makes it a relative difficulty of {round(difficulty, 2)} from 0 to 10{' (for a Friday)' if is_friday else ''}. {difficulty_description}")
