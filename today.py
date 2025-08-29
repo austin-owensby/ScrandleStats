@@ -19,8 +19,8 @@ else:
 
     # Fridays are outliers in difficulty starting on 2025-05-16
     first_difficult_friday = datetime(year=2025, month=5, day=16)
-    min_value = 100
-    max_value = 0
+    min_value = average
+    max_value = average
     
     for historical_data_point in historical_data:
         date = datetime.strptime(historical_data_point, "%Y-%m-%d")
