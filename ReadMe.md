@@ -22,3 +22,8 @@ Calculates the individual day's diff and if present, the relative difficulty bas
 This populates missing diffs back to the start (4/20/2025) so that we can calculate a relative difficulty for an individual day
 
 For the sake of reducing network traffic, I've checked in my latest historical_data.csv file since past data shouldn't change.
+
+### Scrape Slack
+1. `python scrape_slack.py`
+
+This was to scrape self reported scores from our local Slack channel dedicated to SCrandle to get an idea of the distribution of score on past days
