@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 import time
-from utils import getScoreData, getMatchupsForDate, calculateAverageDifference, getHistoricalData, saveHistoricalData
+from utils import getScoreData, getMatchupsForDate, calculateRating, getHistoricalData, saveHistoricalData
 
 score_data = getScoreData()
 
@@ -19,8 +19,8 @@ while date <= today:
     # Only get the days matchup if we don't already have it
     if date_formatted not in historical_data:
         matchup_data = getMatchupsForDate(date)
-        average = calculateAverageDifference(score_data, matchup_data)
-        new_data.append((date_formatted, average))
+        rating = calculateRating(score_data, matchup_data)
+        new_data.append((date_formatted, rating))
         print(f"Processed date {date_formatted}")
 
         # Rate limiting to avoid spamming the server

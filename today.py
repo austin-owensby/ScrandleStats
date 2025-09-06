@@ -1,26 +1,26 @@
 from datetime import datetime
-from utils import getScoreData, getMatchupsForDate, calculateAverageDifference, getHistoricalData, saveHistoricalData
+from utils import getScoreData, getMatchupsForDate, calculateRating, getHistoricalData, saveHistoricalData
 
 historical_data = getHistoricalData()
 date_formatted = datetime.today().strftime("%Y-%m-%d")
 
 if date_formatted in historical_data:
-    average = historical_data[date_formatted]
+    rating = historical_data[date_formatted]
 else:
     score_data = getScoreData()
     matchup_data = getMatchupsForDate(datetime.today())
-    average = calculateAverageDifference(score_data, matchup_data)
-    saveHistoricalData([(date_formatted, average)])
+    rating = calculateRating(score_data, matchup_data)
+    saveHistoricalData([(date_formatted, rating)])
 
 if len(historical_data) == 0:
-    print(f"Today's Scrandle diff average is {round(average, 2)}")
+    print("Unable to calculate a relative difficulty")
 else:
     is_friday = datetime.today().weekday() == 4
 
     # Fridays are outliers in difficulty starting on 2025-05-16
     first_difficult_friday = datetime(year=2025, month=5, day=16)
-    min_value = average
-    max_value = average
+    min_value = rating
+    max_value = rating
     
     for historical_data_point in historical_data:
         date = datetime.strptime(historical_data_point, "%Y-%m-%d")
@@ -42,9 +42,9 @@ else:
                 max_value = value
 
     if min_value == max_value:
-        print(f"Today's Scrandle diff average is {round(average, 2)}")
+        print("Unable to calculate a relative difficulty")
     else:
-        difficulty = 10 - 10 * (average - min_value) / (max_value - min_value)
+        difficulty = 10 * (rating - min_value) / (max_value - min_value)
         difficulty_description = "That's "
 
         if difficulty < 2.0:
@@ -58,4 +58,4 @@ else:
         else:
             difficulty_description += "a tough one!"   
         
-        print(f"Today's Scrandle diff average is {round(average, 2)} which makes it a relative difficulty of {round(difficulty, 2)} from 0 to 10. {difficulty_description}{' (for a Friday)' if is_friday else ''}")
+        print(f"Today's Scrandle is a relative difficulty of {round(difficulty, 2)} from 0 to 10. {difficulty_description}{' (for a Friday)' if is_friday else ''}")

@@ -68,8 +68,8 @@ def getMatchupsForDate(date: datetime):
 
     return matchup_data
 
-def calculateAverageDifference(score_data: list[dict], matchup_data: list[list[str]]):
-    """Given the score data for all scrans and the daily matchup, calculate the average difference between the matchups scores"""
+def calculateRating(score_data: list[dict], matchup_data: list[list[str]]):
+    """Given the score data for all scrans and the daily matchup, calculate a rating based on weighted matchups"""
     # 1. Collect a list of unique scran ids
     unique_scans = []
 
@@ -91,15 +91,27 @@ def calculateAverageDifference(score_data: list[dict], matchup_data: list[list[s
             matchup_score_data[score["id"]] = score["rating"]
 
     # 3. Tally score based on differences
-    diffs = []
+    ratings = []
 
     for matchup in matchup_data:
         diff = abs(matchup_score_data[matchup[0]] - matchup_score_data[matchup[1]])
-        diffs.append(diff)
 
-    average = sum(diffs) / len(diffs)
+        # Any adjustments to these variable should result in deleting the old `historical_data.csv` file
+        #   and rerunning the `all.py` script
+        max_possible_diff = 100
+        average_diff = 28
+        power = 2
 
-    return average
+        # This is based off of a parabola where a diff of 100 has a modifier of 0
+        #   and an average diff of 28 has a modifier of 1.
+        #   This means that smaller diffs have a higher modifier
+        # If this does not weigh harder problems enough, we can increase the power
+        rating_item = ((max_possible_diff - diff) / (max_possible_diff - average_diff)) ** power
+        ratings.append(rating_item)
+
+    rating = sum(ratings)
+
+    return rating
 
 def getHistoricalData():
     """Gets a dictionary of cached historical data"""
