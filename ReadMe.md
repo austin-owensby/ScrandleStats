@@ -27,3 +27,8 @@ For the sake of reducing network traffic, I've checked in my latest historical_d
 1. `python scrape_slack.py`
 
 This was to scrape self reported scores from our local Slack channel dedicated to SCrandle to get an idea of the distribution of score on past days
+
+### Slack Averages
+1. `python analyze_slack.py`
+
+This uses the previous script's slack.csv to group the results by date and get an average score per day
