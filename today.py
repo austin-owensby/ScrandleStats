@@ -14,8 +14,6 @@ try:
         rating = calculateRating(matchup_data)
         saveHistoricalData([(date_formatted, rating)])
 
-    print(len(historical_data))
-
     if len(historical_data) == 0:
         print("Unable to calculate a relative difficulty")
     else:
@@ -48,9 +46,6 @@ try:
         if min_value == max_value:
             print("Unable to calculate a relative difficulty")
         else:
-            print(rating)
-            print(min_value)
-            print(max_value)
             difficulty = 10 * (rating - min_value) / (max_value - min_value)
             difficulty_description = "That's "
 
