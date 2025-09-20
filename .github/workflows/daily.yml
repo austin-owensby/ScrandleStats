@@ -27,6 +27,12 @@ jobs:
         curl -X POST "${{ secrets.SLACK_ROUTE }}" \
              -H "Content-Type: application/json" \
              -d '{"text": "'"${{ steps.runPython.outputs.result }}"'"}'
+    - name: Report error
+      run: |
+        if [[ -f "error.txt" ]]; then
+          cat error.txt
+          exit 1
+        fi
     - name: Commit updated historical results
       run: |
         git config --global user.name 'Austin Owensby'

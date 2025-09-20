@@ -1,7 +1,7 @@
 from datetime import datetime
 import math
 import traceback
-from utils import getScoreData, getMatchupsForDate, calculateRating, getHistoricalData, saveHistoricalData
+from utils import getMatchupsForDate, calculateRating, getHistoricalData, saveHistoricalData
 
 try:
     historical_data = getHistoricalData()
@@ -10,10 +10,11 @@ try:
     if date_formatted in historical_data:
         rating = historical_data[date_formatted]
     else:
-        score_data = getScoreData()
         matchup_data = getMatchupsForDate(datetime.today())
-        rating = calculateRating(score_data, matchup_data)
+        rating = calculateRating(matchup_data)
         saveHistoricalData([(date_formatted, rating)])
+
+    print(len(historical_data))
 
     if len(historical_data) == 0:
         print("Unable to calculate a relative difficulty")
@@ -47,6 +48,9 @@ try:
         if min_value == max_value:
             print("Unable to calculate a relative difficulty")
         else:
+            print(rating)
+            print(min_value)
+            print(max_value)
             difficulty = 10 * (rating - min_value) / (max_value - min_value)
             difficulty_description = "That's "
 

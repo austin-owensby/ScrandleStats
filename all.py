@@ -1,8 +1,7 @@
 from datetime import datetime, timedelta
 import time
-from utils import getScoreData, getMatchupsForDate, calculateRating, getHistoricalData, saveHistoricalData
+from utils import getMatchupsForDate, calculateRating, getHistoricalData, saveHistoricalData
 
-score_data = getScoreData()
 
 START_DATE = datetime(2025, 4, 20)
 today = datetime.today()
@@ -19,7 +18,7 @@ while date <= today:
     # Only get the days matchup if we don't already have it
     if date_formatted not in historical_data:
         matchup_data = getMatchupsForDate(date)
-        rating = calculateRating(score_data, matchup_data)
+        rating = calculateRating(matchup_data)
         new_data.append((date_formatted, rating))
         print(f"Processed date {date_formatted}")
 
