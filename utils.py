@@ -63,4 +63,6 @@ def saveHistoricalData(data: list[tuple[str, float]]):
 
     with open(file_path, "a") as f:
         for line in data:
-            print(f"{line[0]},{line[1]}", file=f)
+            # Don't save ratings of 0. This is from a weird day and will throw our calcs off
+            if line[1] != 0:
+                print(f"{line[0]},{line[1]}", file=f)
