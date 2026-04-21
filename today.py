@@ -65,7 +65,7 @@ try:
             else:
                 # Based on historical Slack data + a trend line with an R^2 of 0.702, predict what people will score
                 # Take the min so that super easy days don't result in predictions above a 10
-                prediction = min(9, 62.1 * (rating ** -0.87))
+                prediction = min(9.9, 62.1 * (rating ** -0.87))
                 
                 print(f"Today's Scrandle is a relative difficulty of {round(difficulty, 2)} from 0 to 10. {difficulty_description}{' (for a Friday)' if is_friday else ''} :crystal_ball: I predict you will have a score around {math.floor(prediction)} or {math.ceil(prediction)}.")
 except Exception as e:
