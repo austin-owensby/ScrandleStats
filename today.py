@@ -47,18 +47,18 @@ try:
             print("Unable to calculate a relative difficulty")
         else:
             difficulty = 10 * (rating - min_value) / (max_value - min_value)
-            difficulty_description = "That's "
+            difficulty_description = "that's "
 
             if difficulty < 2.0:
-                difficulty_description += "pretty easy."
+                difficulty_description += f"pretty easy{' (for a Friday)' if is_friday else ''}."
             elif difficulty < 4.0:
-                difficulty_description += "an easy one."
+                difficulty_description += f"an easy one{' (for a Friday)' if is_friday else ''}."
             elif difficulty < 6.0:
-                difficulty_description += "especially average."
+                difficulty_description += f"especially average{' (for a Friday)' if is_friday else ''}."
             elif difficulty < 8.0:
-                difficulty_description += "a little tricky."
+                difficulty_description += f"a little tricky{' (for a Friday)' if is_friday else ''}."
             else:
-                difficulty_description += "a tough one!"
+                difficulty_description += f"a tough one{' (for a Friday)' if is_friday else ''}!"
 
             if rating == 0:
                 print("Today's Scrandle is special and I couldn't come up with a proper difficulty rating. Good luck!")
@@ -67,7 +67,7 @@ try:
                 # Take the min so that super easy days don't result in predictions above a 10
                 prediction = min(9.9, 62.1 * (rating ** -0.87))
                 
-                print(f"Today's Scrandle is a relative difficulty of {round(difficulty, 2)} from 0 to 10{difficulty_description}{' (for a Friday)' if is_friday else ''}. :crystal_ball: I predict you will have a score around {math.floor(prediction)} or {math.ceil(prediction)}{' :67:' if math.floor(prediction) == 6 else ''}.")
+                print(f"Today's Scrandle is a relative difficulty of {round(difficulty, 2)} from 0 to 10, {difficulty_description} :crystal_ball: I predict you will have a score around {math.floor(prediction)} or {math.ceil(prediction)}{' :67:' if math.floor(prediction) == 6 else ''}.")
 except Exception as e:
     print("Hey @Austin Owensby you need to update my code, I hit an error. :sadblob:")
 
